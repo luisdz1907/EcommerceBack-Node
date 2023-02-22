@@ -28,10 +28,12 @@ const loginUser = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       maxAge: 72 * 60 * 60 * 1000,
     });
+
     res.json({
       _id: findUser?._id,
       firstname: findUser?.firstname,
@@ -40,6 +42,7 @@ const loginUser = asyncHandler(async (req, res) => {
       mobile: findUser?.mobile,
       token: generateToken(findUser?._id),
     });
+    
   } else {
     throw new Error("Credenciales invalidas");
   }
